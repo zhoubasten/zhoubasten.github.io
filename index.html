@@ -1,7 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的名字 - 个人主页</title>
+    <style>
+        :root { --text-color: #333; --link-color: #007bff; --bg-color: #ffffff; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; color: var(--text-color); max-width: 900px; margin: 0 auto; padding: 40px 20px; background: var(--bg-color); }
+        
+        /* 响应式布局：大屏显示左右，小屏显示上下 */
+        .container { display: flex; flex-wrap: wrap; gap: 40px; }
+        .sidebar { flex: 1; min-width: 250px; }
+        .main-content { flex: 2; min-width: 300px; }
+
+        .profile-pic { width: 200px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        h2 { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 30px; font-size: 1.5rem; }
+        
+        .social-links { list-style: none; padding: 0; }
+        .social-links li { margin-bottom: 10px; }
+        .social-links a { color: var(--link-color); text-decoration: none; font-weight: 500; }
+        
+        .btn-resume { display: inline-block; background: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 10px; transition: 0.3s; }
+        .btn-resume:hover { background: #555; }
+        
+        .item { margin-bottom: 15px; }
+        .item-title { font-weight: bold; }
+        .item-date { float: right; color: #888; font-size: 0.9rem; }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <div class="container">
+        <div class="sidebar">
+            <img src="avatar.jpg" alt="Profile Picture" class="profile-pic">
+            <h1>你的名字</h1>
+            <p>这里写一句话简介，例如：某某大学学生 / 某公司软件工程师</p>
+            
+            <ul class="social-links">
+                <li>📧 <a href="mailto:your-email@example.com">Email</a></li>
+                <li>🐙 <a href="https://github.com/你的用户名">GitHub</a></li>
+                <li>🔗 <a href="https://linkedin.com/in/你的用户名">LinkedIn</a></li>
+            </ul>
+            
+            <a href="resume.pdf" class="btn-resume" target="_blank">📄 查看简历 (PDF)</a>
+        </div>
+
+        <div class="main-content">
+            <section>
+                <h2>关于我 (About Me)</h2>
+                <p>这里可以写一段比较详细的自我介绍。介绍你的研究兴趣、职业目标或者你最近在忙的项目。</p>
+            </section>
+
+            <section>
+                <h2>教育经历 (Education)</h2>
+                <div class="item">
+                    <span class="item-date">2021 - 2025</span>
+                    <div class="item-title">XX 大学</div>
+                    <div class="item-desc">计算机科学与技术 · 学士</div>
+                </div>
+            </section>
+
+            <section>
+                <h2>实习/工作经历 (Experience)</h2>
+                <div class="item">
+                    <span class="item-date">2023.06 - 2023.09</span>
+                    <div class="item-title">某某科技公司</div>
+                    <div class="item-desc">前端开发实习生</div>
+                </div>
+            </section>
+
+            <section>
+                <h2>开源项目 (Projects)</h2>
+                <div class="item">
+                    <div class="item-title"><a href="#">项目名称 A</a></div>
+                    <p>简短描述一下这个项目解决了什么问题，用了什么技术栈。</p>
+                </div>
+            </section>
+        </div>
+    </div>
 </body>
 </html>
