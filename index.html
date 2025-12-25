@@ -3,52 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>你的名字 - 个人主页</title>
+    <title>周鹏</title>
     <style>
-        :root { --text-color: #333; --link-color: #007bff; --bg-color: #ffffff; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.6; color: var(--text-color); max-width: 900px; margin: 0 auto; padding: 40px 20px; background: var(--bg-color); }
-        
-        /* 响应式布局：大屏显示左右，小屏显示上下 */
-        .container { display: flex; flex-wrap: wrap; gap: 40px; }
-        .sidebar { flex: 1; min-width: 250px; }
-        .main-content { flex: 2; min-width: 300px; }
-
-        .profile-pic {
-            width: 200px;         /* 宽度固定 */
-            height: 200px;        /* 高度固定，必须与宽度一致才是正圆 */
-            object-fit: cover;    /* 核心：自动裁剪长方形图片，防止拉伸变形 */
-            object-position: top; /* 考虑到是人像照，建议从顶部对齐裁剪，保留头部 */
-            border-radius: 50%;   /* 变成正圆 */
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 3px solid #fff; /* 增加一个白色边框，会让证件照看起来更自然 */
+        :root {
+            --text-color: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --link-color: #3498db;
+            --link-hover: #2980b9;
+            --bg-color: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
         }
-        h1 { font-size: 2.2rem; margin-bottom: 10px; }
-        h2 { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 30px; font-size: 1.5rem; }
         
-        .social-links { list-style: none; padding: 0; }
-        .social-links li { margin-bottom: 10px; }
-        .social-links a { color: var(--link-color); text-decoration: none; font-weight: 500; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        .btn-resume { display: inline-block; background: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 10px; transition: 0.3s; }
-        .btn-resume:hover { background: #555; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
         
-        .item { margin-bottom: 15px; }
-        .item-title { font-weight: bold; }
-        .item-date { float: right; color: #888; font-size: 0.9rem; }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hover);
+            padding: 50px 40px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .main-content {
+            flex: 2;
+            min-width: 400px;
+        }
+
+        .profile-pic-wrapper {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-hover);
+            border: 4px solid #fff;
+            background: var(--bg-secondary);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .profile-pic-wrapper:hover {
+            transform: scale(1.25);
+        }
+        
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transform: scale(1.3); /* 放大图片，这样图片内容（人脸）在圆形中显示得更小 */
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-pic-wrapper:hover .profile-pic {
+            transform: scale(1.35);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: var(--text-color);
+            font-weight: 700;
+        }
+        
+        .sidebar > p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        .social-links {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .social-links li {
+            margin-bottom: 12px;
+            transition: transform 0.2s ease;
+        }
+        
+        .social-links li:hover {
+            transform: translateX(5px);
+        }
+        
+        .social-links a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--link-hover);
+        }
+        
+        .btn-resume {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-resume:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        section {
+            margin-bottom: 40px;
+        }
+        
+        .item {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 4px solid var(--link-color);
+            transition: all 0.3s ease;
+        }
+        
+        .item:hover {
+            box-shadow: var(--shadow);
+            transform: translateX(5px);
+        }
+        
+        .item-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .item-title a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .item-title a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+        
+        .item-date {
+            float: right;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: #fff;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+        
+        .item-desc {
+            color: var(--text-secondary);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+        
+        .item p {
+            color: var(--text-secondary);
+            margin-top: 10px;
+            line-height: 1.7;
+        }
+        
+        .item-detail {
+            margin-top: 15px;
+        }
+        
+        .item-detail h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .item-detail ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 8px;
+        }
+        
+        .item-detail li {
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .item-detail li:before {
+            content: "•";
+            color: var(--link-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .item-detail li a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .item-detail li a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+        
+        .item-detail ul ul {
+            margin-top: 8px;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            display: none; /* 默认隐藏 */
+            transition: all 0.3s ease;
+        }
+        
+        .item-detail li.module {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-top: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+        
+        .item-detail li.module:hover {
+            color: var(--link-color);
+        }
+        
+        .item-detail li.module:first-child {
+            margin-top: 0;
+        }
+        
+        .item-detail li.module:before {
+            content: "▸";
+            color: var(--link-color);
+            display: inline-block;
+            transition: transform 0.3s ease;
+            margin-right: 6px;
+        }
+        
+        .item-detail li.module.expanded:before {
+            transform: rotate(90deg);
+        }
+        
+        .item-detail li.module.expanded + ul {
+            display: block; /* 展开时显示 */
+        }
+        
+        .item-detail ul ul li {
+            padding-left: 20px;
+        }
+        
+        .item-detail ul ul li:before {
+            content: "◦";
+            color: var(--text-secondary);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+                gap: 30px;
+            }
+            
+            .sidebar,
+            .main-content {
+                min-width: 100%;
+            }
+            
+            .profile-pic-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .item-date {
+                float: none;
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <img src="avatar.jpg" alt="Profile Picture" class="profile-pic">
-            <h1>你的名字</h1>
-            <p>这里写一句话简介，例如：某某大学学生 / 某公司软件工程师</p>
+            <div class="profile-pic-wrapper">
+                <img src="avatar.png" alt="Profile Picture" class="profile-pic">
+            </div>
+            <h1>周鹏</h1>
+            <p>Roger Zhou</p>
             
             <ul class="social-links">
-                <li>📧 <a href="mailto:your-email@example.com">Email</a></li>
-                <li>🐙 <a href="https://github.com/你的用户名">GitHub</a></li>
-                <li>🔗 <a href="https://linkedin.com/in/你的用户名">LinkedIn</a></li>
+                <li>📧 <a href="mailto:peng.zhounix@gmail.com">Email</a></li>
+                <li>🔗 <a href="https://www.linkedin.com/in/rogerzhou/">LinkedIn</a></li>
             </ul>
             
             <a href="resume.pdf" class="btn-resume" target="_blank">📄 查看简历 (PDF)</a>
@@ -57,35 +362,85 @@
         <div class="main-content">
             <section>
                 <h2>关于我 (About Me)</h2>
-                <p>这里可以写一段比较详细的自我介绍。介绍你的研究兴趣、职业目标或者你最近在忙的项目。</p>
+                <p>我是一名产品经理，我热爱创造有用的东西</p>
+            </section>
+
+            <section>
+                <h2>工作经历 (Experience)</h2>
+                
+                <div class="item">
+                    <span class="item-date">2021.06 - 2025.12</span>
+                    <div class="item-title">PingCAP</div>
+                    <div class="item-desc">Product Manager of <a href="https://tidbcloud.com" target="_blank">TiDB Cloud</a></div>
+                    <div class="item-detail">
+                        <h3>Selected Work</h3>
+                        <ul>
+                            <li class="module">IAM</li>
+                            <ul>
+                                <li><a href="https://www.pingcap.com/blog/announcing-organization-sso-authentication-tidb-cloud/" target="_blank">Organization SSO support in TiDB Cloud</a></li>
+                                <li><a href="https://www.pingcap.com/blog/tidb-cloud-supports-oauth-2-0-for-a-more-secure-login-experience/" target="_blank">OAuth 2.0 Device code support in TiDB Cloud</a></li>
+                                <li><a href="https://www.pingcap.com/blog/maximizing-tidb-cloud-security-and-usability-with-oauth-2-0-authorization-code-flow/" target="_blank">OAuth 2.0 Authorization code flow support in TiDB Cloud</a></li>
+                            </ul>
+                            <li class="module">Billing</li>
+                            <ul>
+                                <li>Billing System of TiDB Cloud</li>
+                            </ul>
+                            <li class="module">Partnership</li>
+                            <ul>
+                                <li>Integration with Marketplace of AWS, Azure and GCP</li>
+                                <li><a href="https://partner-console.tidbcloud.com/" target="_blank">TiDB Cloud Partner Web Console</a></li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <span class="item-date">2019.09 - 2021.05</span>
+                    <div class="item-title">ANZ</div>
+                    <div class="item-desc">（职位）</div>
+                </div>
+                
+                <div class="item">
+                    <span class="item-date">2018.06 - 2019.09</span>
+                    <div class="item-title">Huawei</div>
+                    <div class="item-desc">（职位）</div>
+                </div>
+                
+                <div class="item">
+                    <span class="item-date">2008.09 - 2018.06</span>
+                    <div class="item-title">Symantec/Veritas</div>
+                    <div class="item-desc">（职位）</div>
+                </div>
             </section>
 
             <section>
                 <h2>教育经历 (Education)</h2>
                 <div class="item">
-                    <span class="item-date">2021 - 2025</span>
-                    <div class="item-title">XX 大学</div>
-                    <div class="item-desc">计算机科学与技术 · 学士</div>
+                    <span class="item-date">2012 - 2015</span>
+                    <div class="item-title">四川大学</div>
+                    <div class="item-desc">MBA</div>
                 </div>
-            </section>
-
-            <section>
-                <h2>实习/工作经历 (Experience)</h2>
                 <div class="item">
-                    <span class="item-date">2023.06 - 2023.09</span>
-                    <div class="item-title">某某科技公司</div>
-                    <div class="item-desc">前端开发实习生</div>
-                </div>
-            </section>
-
-            <section>
-                <h2>开源项目 (Projects)</h2>
-                <div class="item">
-                    <div class="item-title"><a href="#">项目名称 A</a></div>
-                    <p>简短描述一下这个项目解决了什么问题，用了什么技术栈。</p>
+                    <span class="item-date">1999 - 2006</span>
+                    <div class="item-title">电子科技大学</div>
+                    <div class="item-desc">计算机科学与技术 · 硕士</div>
                 </div>
             </section>
         </div>
     </div>
+    
+    <script>
+        // 展开/收起功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const modules = document.querySelectorAll('.item-detail li.module');
+            
+            modules.forEach(function(module) {
+                module.addEventListener('click', function() {
+                    // 切换展开/收起状态
+                    this.classList.toggle('expanded');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
