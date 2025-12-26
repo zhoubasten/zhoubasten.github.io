@@ -35,9 +35,6 @@
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
             background: var(--bg-color);
             border-radius: 12px;
             box-shadow: var(--shadow-hover);
@@ -45,57 +42,99 @@
         }
         
         .sidebar {
+            width: 100%;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .sidebar-header {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-header h2 {
+            margin-top: 0;
+            border-bottom: none;
+        }
+        
+        .sidebar-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .sidebar-info {
             flex: 1;
-            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .main-content {
-            flex: 2;
-            min-width: 400px;
+            width: 100%;
         }
 
         .profile-pic-wrapper {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
+            flex-shrink: 0;
             border-radius: 50%;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-hover);
-            border: 4px solid #fff;
-            background: var(--bg-secondary);
+            box-shadow: none;
+            border: none;
+            outline: none;
+            background: transparent;
             overflow: hidden;
             transition: transform 0.3s ease;
             position: relative;
         }
         
         .profile-pic-wrapper:hover {
-            transform: scale(1.25);
+            transform: scale(1.02);
         }
         
         .profile-pic {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
-            transform: scale(1.3); /* 放大图片，这样图片内容（人脸）在圆形中显示得更小 */
+            object-position: center 60%;
             transition: transform 0.3s ease;
+            border: none;
+            outline: none;
+            transform: scale(1.2);
         }
         
         .profile-pic-wrapper:hover .profile-pic {
-            transform: scale(1.35);
+            transform: scale(1.26);
         }
         
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            color: var(--text-color);
+        .sidebar-info h1 {
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+            color: var(--link-color);
             font-weight: 700;
+            line-height: 1.3;
         }
         
-        .sidebar > p {
+        .sidebar-info > p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .sidebar-info .social-links {
+            margin-bottom: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .sidebar-info .social-links li {
+            margin-bottom: 0;
         }
         
         h2 {
@@ -106,6 +145,16 @@
             font-size: 1.6rem;
             color: var(--text-color);
             font-weight: 600;
+        }
+        
+        .main-content section:first-of-type h2 {
+            border-bottom: none;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .main-content section:last-of-type h2 {
+            border-bottom: none;
         }
         
         .social-links {
@@ -120,7 +169,7 @@
         }
         
         .social-links li:hover {
-            transform: translateX(5px);
+            transform: translateY(-2px);
         }
         
         .social-links a {
@@ -141,18 +190,20 @@
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 6px 14px;
+            border-radius: 6px;
             text-decoration: none;
-            margin-top: 10px;
+            margin-top: 0;
             transition: all 0.3s ease;
             font-weight: 500;
+            font-size: 0.9rem;
             box-shadow: var(--shadow);
         }
         
         .btn-resume:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
+            color: #fff;
         }
         
         section {
@@ -258,6 +309,80 @@
             text-decoration: underline;
         }
         
+        /* 微信二维码弹窗样式 */
+        .wechat-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .wechat-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wechat-modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .wechat-modal-content img {
+            max-width: 300px;
+            max-height: 300px;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .wechat-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--text-secondary);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        
+        .wechat-modal-close:hover {
+            color: var(--text-color);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
         .item-detail ul ul {
             margin-top: 8px;
             margin-bottom: 12px;
@@ -317,21 +442,37 @@
             
             .container {
                 padding: 30px 20px;
-                gap: 30px;
             }
             
-            .sidebar,
-            .main-content {
-                min-width: 100%;
+            .sidebar {
+                margin-bottom: 30px;
+                padding-bottom: 30px;
+            }
+            
+            .sidebar-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .sidebar-info {
+                width: 100%;
+                align-items: center;
             }
             
             .profile-pic-wrapper {
-                width: 150px;
-                height: 150px;
+                width: 120px;
+                height: 120px;
             }
             
-            h1 {
-                font-size: 2rem;
+            .sidebar-info h1 {
+                font-size: 1.6rem;
+            }
+            
+            .sidebar-info .social-links {
+                justify-content: center;
+                gap: 15px;
             }
             
             .item-date {
@@ -340,38 +481,122 @@
                 margin-bottom: 8px;
             }
         }
+        
+        /* 打印样式优化 */
+        @media print {
+            /* 设置页面边距 */
+            @page {
+                margin: 1.5cm;
+                size: A4;
+            }
+            
+            body {
+                background: white;
+                padding: 20px 10px;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 30px 20px;
+                max-width: 100%;
+                background: white;
+            }
+            
+            /* 禁用所有悬停和动画效果 */
+            .profile-pic-wrapper:hover {
+                transform: none;
+            }
+            
+            .item:hover {
+                transform: none;
+                box-shadow: var(--shadow);
+            }
+            
+            .social-links li:hover {
+                transform: none;
+            }
+            
+            /* 确保所有模块默认展开显示 */
+            .item-detail ul ul {
+                display: block !important;
+            }
+            
+            .item-detail li.module:before {
+                content: "▸";
+                transform: rotate(90deg);
+            }
+            
+            /* 隐藏不必要的元素 */
+            .btn-resume {
+                display: none;
+            }
+            
+            .wechat-modal {
+                display: none !important;
+            }
+            
+            /* 优化链接显示 */
+            a {
+                color: var(--text-color);
+                text-decoration: none;
+            }
+            
+            a[href^="http"]:after {
+                content: " (" attr(href) ")";
+                font-size: 0.9em;
+                color: var(--text-secondary);
+            }
+            
+            /* 优化分页，避免在项目中间分页 */
+            /* "关于我"section 之后不要强制分页 */
+            section:first-of-type {
+                page-break-after: auto;
+            }
+            
+            /* 其他 section 也尽量不分页 */
+            section {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+            
+            .item {
+                page-break-inside: avoid;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="profile-pic-wrapper">
-                <img src="avatar.png" alt="Profile Picture" class="profile-pic">
+            <div class="sidebar-header">
+                <h2>个人信息</h2>
             </div>
-            <h1>周鹏</h1>
-            <p>Roger Zhou</p>
-            
-            <ul class="social-links">
-                <li>📧 <a href="mailto:peng.zhounix@gmail.com">Email</a></li>
-                <li>🔗 <a href="https://www.linkedin.com/in/rogerzhou/">LinkedIn</a></li>
-            </ul>
-            
-            <a href="resume.pdf" class="btn-resume" target="_blank">📄 查看简历 (PDF)</a>
+            <div class="sidebar-content">
+                <div class="profile-pic-wrapper">
+                    <img src="avatar.png" alt="Profile Picture" class="profile-pic">
+                </div>
+                <div class="sidebar-info">
+                    <h1>周鹏</h1>
+                    <p>我是一名产品经理，我热爱创造有用的东西</p>
+                    
+                    <ul class="social-links">
+                        <li>💬 <a href="#" id="wechat-link">微信</a></li>
+                        <li>📧 <a href="mailto:peng.zhounix@gmail.com">Email</a></li>
+                        <li>🔗 <a href="https://www.linkedin.com/in/rogerzhou/">LinkedIn</a></li>
+                        <li>📄 <a href="resume.pdf" target="_blank">查看简历 (PDF)</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="main-content">
             <section>
-                <h2>关于我 (About Me)</h2>
-                <p>我是一名产品经理，我热爱创造有用的东西</p>
-            </section>
-
-            <section>
-                <h2>工作经历 (Experience)</h2>
+                <h2>工作经历</h2>
                 
                 <div class="item">
                     <span class="item-date">2021.06 - 2025.12</span>
                     <div class="item-title">PingCAP</div>
-                    <div class="item-desc">Product Manager of <a href="https://tidbcloud.com" target="_blank">TiDB Cloud</a></div>
+                    <div class="item-desc"><a href="https://tidbcloud.com" target="_blank">TiDB Cloud</a> 产品经理，驱动产品从早期孵化到全球商业化。</div>
                     <div class="item-detail">
                         <h3>Selected Work</h3>
                         <ul>
@@ -390,6 +615,8 @@
                                 <li>Integration with Marketplace of AWS, Azure and GCP</li>
                                 <li><a href="https://partner-console.tidbcloud.com/" target="_blank">TiDB Cloud Partner Web Console</a></li>
                             </ul>
+                            <li class="module">AI Powered Web SQL Editor</li>
+                            <li class="module">TiDB Cloud Web Console </li>
                         </ul>
                     </div>
                 </div>
@@ -397,24 +624,60 @@
                 <div class="item">
                     <span class="item-date">2019.09 - 2021.05</span>
                     <div class="item-title">ANZ</div>
-                    <div class="item-desc">（职位）</div>
+                    <div class="item-desc">大数据平台产品负责人</div>
+                    <div class="item-detail">
+                        <h3>Selected Work</h3>
+                        <ul>
+                            <li>主导 EBD 企业级大数据、DAW 数据分析及 MLOps 平台建设</li>
+                            <li>通过需求管理与生态拓展，驱动多部门数据迁入，成功争取业务资金支持并扩大用户规模</li>
+                        </ul>
+                    </div>
                 </div>
                 
                 <div class="item">
                     <span class="item-date">2018.06 - 2019.09</span>
                     <div class="item-title">Huawei</div>
-                    <div class="item-desc">（职位）</div>
+                    <div class="item-desc">高级产品经理</div>
+                    <div class="item-detail">
+                        <h3>Selected Work</h3>
+                        <ul>
+                            <li>负责产品 FusionROBO 和 FusionCube 的上市推广工作</li>
+                            <li>与第三方咨询机构合作，成功实现 FusionCube 在 Gartner 魔力四象限中升级到领导者象限</li>
+                            <li>全球重点区域销售赋能</li>
+                        </ul>
+                    </div>
                 </div>
                 
                 <div class="item">
                     <span class="item-date">2008.09 - 2018.06</span>
                     <div class="item-title">Symantec/Veritas</div>
-                    <div class="item-desc">（职位）</div>
+                    <div class="item-desc">技术产品经理、软件开发经理</div>
+                    <div class="item-detail">
+                        <h3>Selected Work</h3>
+                        <ul>
+                            <li>首席产品管理：负责 NetBackup 一体机全生命周期管理；主导高可用（HA）版本研发并实现存储容量翻倍，大幅提升产品市场竞争力</li>
+                            <li>团队领导力：从 0 到 1 组建 20 人研发团队，主导 FileStore NAS 系统开发并完成敏捷开发模式转型</li>
+                            <li>OEM 生态合作：深度对接华为赛门铁壳，助力 N8000 夺得 SPECsfs 全球性能冠军，并实现连续三年销售增速第一</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <span class="item-date">2006.07 - 2008.09</span>
+                    <div class="item-title">Nokia</div>
+                    <div class="item-desc">系统架构师</div>
+                    <div class="item-detail">
+                        <h3>Selected Work</h3>
+                        <ul>
+                            <li>参与到 PoC (Push to Talk Over Cellular) 项目开发，将开发从芬兰移交到中国</li>
+                            <li>作为主要开发人员为 2008 年北京奥运会设计实现了可抢占语音通话新功能</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section>
-                <h2>教育经历 (Education)</h2>
+                <h2>教育经历</h2>
                 <div class="item">
                     <span class="item-date">2012 - 2015</span>
                     <div class="item-title">四川大学</div>
@@ -429,6 +692,15 @@
         </div>
     </div>
     
+    <!-- 微信二维码弹窗 -->
+    <div id="wechat-modal" class="wechat-modal">
+        <div class="wechat-modal-content">
+            <span class="wechat-modal-close">&times;</span>
+            <h3 style="margin-bottom: 15px; color: var(--text-color);">微信二维码</h3>
+            <img src="Weixin.jpg" alt="微信二维码">
+        </div>
+    </div>
+    
     <script>
         // 展开/收起功能
         document.addEventListener('DOMContentLoaded', function() {
@@ -439,6 +711,36 @@
                     // 切换展开/收起状态
                     this.classList.toggle('expanded');
                 });
+            });
+            
+            // 微信二维码弹窗功能
+            const wechatLink = document.getElementById('wechat-link');
+            const wechatModal = document.getElementById('wechat-modal');
+            const closeBtn = document.querySelector('.wechat-modal-close');
+            
+            // 点击微信链接显示弹窗
+            wechatLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                wechatModal.classList.add('show');
+            });
+            
+            // 点击关闭按钮隐藏弹窗
+            closeBtn.addEventListener('click', function() {
+                wechatModal.classList.remove('show');
+            });
+            
+            // 点击弹窗背景区域隐藏弹窗
+            wechatModal.addEventListener('click', function(e) {
+                if (e.target === wechatModal) {
+                    wechatModal.classList.remove('show');
+                }
+            });
+            
+            // 按 ESC 键隐藏弹窗
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && wechatModal.classList.contains('show')) {
+                    wechatModal.classList.remove('show');
+                }
             });
         });
     </script>
