@@ -4,6 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">周鹏的简历</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" id="meta-description" content="周鹏 (Peng Zhou / Roger) 的产品经理简历 - 拥有丰富的云原生数据库、大数据平台和产品管理经验，曾在 PingCAP、ANZ、Huawei、Symantec/Veritas 等公司担任产品经理和技术负责人">
+    <meta name="keywords" content="周鹏, Peng Zhou, Roger Zhou, 产品经理, Product Manager, TiDB Cloud, PingCAP, 简历, Resume, 产品管理, 云原生数据库, 大数据平台">
+    <meta name="author" content="Peng Zhou (Roger)">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://zhoubasten.github.io/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zhoubasten.github.io/">
+    <meta property="og:title" id="og-title" content="周鹏的简历 | Roger Zhou's Resume">
+    <meta property="og:description" id="og-description" content="Product Manager with extensive experience in cloud-native databases, big data platforms, and product management. Former PM at PingCAP, ANZ, Huawei, and Symantec/Veritas.">
+    <meta property="og:image" content="https://zhoubasten.github.io/avatar.png">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:locale:alternate" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://zhoubasten.github.io/">
+    <meta name="twitter:title" id="twitter-title" content="周鹏的简历 | Roger Zhou's Resume">
+    <meta name="twitter:description" id="twitter-description" content="Product Manager with extensive experience in cloud-native databases and big data platforms">
+    <meta name="twitter:image" content="https://zhoubasten.github.io/avatar.png">
+    
+    <!-- Language Alternates -->
+    <link rel="alternate" hreflang="zh" href="https://zhoubasten.github.io/">
+    <link rel="alternate" hreflang="en" href="https://zhoubasten.github.io/">
+    <link rel="alternate" hreflang="x-default" href="https://zhoubasten.github.io/">
+    
     <style>
         :root {
             --text-color: #2c3e50;
@@ -847,6 +876,64 @@
             }
         }
     </style>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "周鹏",
+        "alternateName": ["Peng Zhou", "Roger Zhou"],
+        "jobTitle": "Product Manager",
+        "description": "产品经理，拥有丰富的云原生数据库、大数据平台和产品管理经验",
+        "url": "https://zhoubasten.github.io/",
+        "image": "https://zhoubasten.github.io/avatar.png",
+        "email": "peng.zhounix@gmail.com",
+        "sameAs": [
+            "https://www.linkedin.com/in/rogerzhou/"
+        ],
+        "alumniOf": [
+            {
+                "@type": "CollegeOrUniversity",
+                "name": "四川大学",
+                "alternateName": "Sichuan University"
+            },
+            {
+                "@type": "CollegeOrUniversity",
+                "name": "电子科技大学",
+                "alternateName": "University of Electronic Science and Technology of China"
+            }
+        ],
+        "worksFor": {
+            "@type": "Organization",
+            "name": "PingCAP",
+            "jobTitle": "Product Manager"
+        }
+    }
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <!-- 请将 G-XXXXXXXXXX 替换为你的实际 Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FCG07PVN4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8FCG07PVN4', {
+            'page_title': document.getElementById('page-title') ? document.getElementById('page-title').textContent : '周鹏的简历',
+            'page_location': window.location.href
+        });
+        
+        // 跟踪语言切换事件
+        function trackLanguageSwitch(lang) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'language_switch', {
+                    'language': lang,
+                    'page_title': document.getElementById('page-title') ? document.getElementById('page-title').textContent : '周鹏的简历'
+                });
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- 语言切换按钮 -->
@@ -1158,12 +1245,49 @@
                     pageTitle.textContent = lang === 'zh' ? '周鹏的简历' : "Roger Zhou's Resume";
                 }
                 
+                // 更新 Meta Description
+                const metaDescription = document.getElementById('meta-description');
+                if (metaDescription) {
+                    metaDescription.content = lang === 'zh' 
+                        ? '周鹏 (Peng Zhou / Roger) 的产品经理简历 - 拥有丰富的云原生数据库、大数据平台和产品管理经验，曾在 PingCAP、ANZ、Huawei、Symantec/Veritas 等公司担任产品经理和技术负责人'
+                        : "Peng Zhou (Roger)'s Product Manager Resume - Extensive experience in cloud-native databases, big data platforms, and product management. Former PM at PingCAP, ANZ, Huawei, and Symantec/Veritas.";
+                }
+                
+                // 更新 Open Graph 标签
+                const ogTitle = document.getElementById('og-title');
+                const ogDescription = document.getElementById('og-description');
+                if (ogTitle) {
+                    ogTitle.content = lang === 'zh' ? '周鹏的简历' : "Roger Zhou's Resume";
+                }
+                if (ogDescription) {
+                    ogDescription.content = lang === 'zh'
+                        ? '产品经理，拥有丰富的云原生数据库、大数据平台和产品管理经验，曾在 PingCAP、ANZ、Huawei、Symantec/Veritas 等公司担任产品经理和技术负责人'
+                        : "Product Manager with extensive experience in cloud-native databases, big data platforms, and product management. Former PM at PingCAP, ANZ, Huawei, and Symantec/Veritas.";
+                }
+                
+                // 更新 Twitter Card 标签
+                const twitterTitle = document.getElementById('twitter-title');
+                const twitterDescription = document.getElementById('twitter-description');
+                if (twitterTitle) {
+                    twitterTitle.content = lang === 'zh' ? '周鹏的简历' : "Roger Zhou's Resume";
+                }
+                if (twitterDescription) {
+                    twitterDescription.content = lang === 'zh'
+                        ? '产品经理，拥有丰富的云原生数据库和大数据平台经验'
+                        : "Product Manager with extensive experience in cloud-native databases and big data platforms";
+                }
+                
                 // 更新语言切换按钮状态
                 document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
                 document.getElementById('lang-en').classList.toggle('active', lang === 'en');
                 
                 // 保存语言选择
                 localStorage.setItem('preferred-language', lang);
+                
+                // 跟踪语言切换事件到 Google Analytics
+                if (typeof trackLanguageSwitch !== 'undefined') {
+                    trackLanguageSwitch(lang);
+                }
             }
             
             // 初始化
