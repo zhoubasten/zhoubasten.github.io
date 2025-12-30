@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>周鹏的简历</title>
+    <title id="page-title">周鹏的简历</title>
     <style>
         :root {
             --text-color: #2c3e50;
@@ -483,6 +483,88 @@
             text-decoration: underline;
         }
         
+        /* 语言切换按钮样式 */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 12px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        
+        .lang-switcher button {
+            background: transparent;
+            border: 2px solid var(--link-color);
+            color: var(--link-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-switcher button:hover {
+            background: var(--link-color);
+            color: #fff;
+        }
+        
+        .lang-switcher button.active {
+            background: var(--link-color);
+            color: #fff;
+        }
+        
+        /* 语言内容显示/隐藏 */
+        [data-lang]:not(.lang-inline):not(a) {
+            display: none;
+        }
+        
+        [data-lang]:not(.lang-inline):not(a).active {
+            display: block;
+        }
+        
+        /* 链接元素的语言切换 */
+        a[data-lang] {
+            display: none;
+        }
+        
+        a[data-lang].active {
+            display: inline;
+        }
+        
+        /* 内联元素的语言切换 */
+        .lang-inline[data-lang] {
+            display: none;
+        }
+        
+        .lang-inline[data-lang].active {
+            display: inline;
+        }
+        
+        /* 确保 h2 标题正确显示 */
+        h2[data-lang] {
+            display: none;
+        }
+        
+        h2[data-lang].active {
+            display: block;
+        }
+        
+        /* 确保 h3 标题正确显示 */
+        h3[data-lang] {
+            display: none;
+        }
+        
+        h3[data-lang].active {
+            display: block;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             body {
@@ -528,6 +610,17 @@
                 float: none;
                 display: inline-block;
                 margin-bottom: 8px;
+            }
+            
+            .lang-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+            }
+            
+            .lang-switcher button {
+                padding: 5px 10px;
+                font-size: 0.85rem;
             }
         }
         
@@ -693,6 +786,10 @@
             }
             
             /* 隐藏不必要的元素 */
+            .lang-switcher {
+                display: none !important;
+            }
+            
             .btn-resume {
                 display: none;
             }
@@ -752,24 +849,38 @@
     </style>
 </head>
 <body>
+    <!-- 语言切换按钮 -->
+    <div class="lang-switcher">
+        <button id="lang-zh" class="lang-btn">中文</button>
+        <button id="lang-en" class="lang-btn">English</button>
+    </div>
+    
     <div class="container">
         <div class="sidebar">
             <div class="sidebar-header">
-                <h2>个人信息</h2>
+                <h2 data-lang="zh" class="active">个人信息</h2>
+                <h2 data-lang="en">Personal Information</h2>
             </div>
             <div class="sidebar-content">
                 <div class="profile-pic-wrapper">
                     <img src="avatar.png" alt="Profile Picture" class="profile-pic">
                 </div>
                 <div class="sidebar-info">
-                    <h1>周鹏</h1>
-                    <p>我是一名产品经理，我热爱创造有价值的东西</p>
+                    <h1>
+                        <span data-lang="zh" class="lang-inline active">周鹏</span>
+                        <span data-lang="en" class="lang-inline">Peng Zhou (Roger)</span>
+                    </h1>
+                    <p data-lang="zh" class="active">我是一名产品经理，我热爱创造价值</p>
+                    <p data-lang="en">I am a product manager. I love building products that matter</p>
                     
                     <ul class="social-links">
-                        <li>💬 <a href="#" id="wechat-link">微信</a></li>
+                        <li>💬 <a href="#" id="wechat-link"><span data-lang="zh" class="lang-inline active">微信</span><span data-lang="en" class="lang-inline">WeChat</span></a></li>
                         <li>📧 <a href="mailto:peng.zhounix@gmail.com">Email</a></li>
                         <li>🔗 <a href="https://www.linkedin.com/in/rogerzhou/">LinkedIn</a></li>
-                        <li>📄 <a href="resume.pdf" target="_blank">下载简历 (PDF)</a></li>
+                        <li>📄 
+                            <a href="周鹏的简历.PDF" target="_blank" data-lang="zh" class="active">下载简历 (PDF)</a>
+                            <a href="Roger Zhou's Resume.PDF" target="_blank" data-lang="en">Download Resume (PDF)</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -777,50 +888,89 @@
 
         <div class="main-content">
             <section>
-                <h2>工作经历</h2>
+                <h2 data-lang="zh" class="active">工作经历</h2>
+                <h2 data-lang="en">Work Experience</h2>
                 
                 <div class="item">
                     <span class="item-date">2021.06 - 2025.12</span>
                     <div class="item-title">PingCAP</div>
                     <div class="item-desc">
-                        <a href="https://tidbcloud.com" target="_blank">TiDB Cloud</a>（全球领先的云原生数据库服务）产品经理，驱动产品从早期孵化到全球规模化增长
+                        <span data-lang="zh" class="active">
+                            <a href="https://tidbcloud.com" target="_blank">TiDB Cloud</a>（全球领先的云原生数据库服务）产品经理，驱动产品从早期孵化到全球规模化增长
+                        </span>
+                        <span data-lang="en">
+                            Product Manager for <a href="https://tidbcloud.com" target="_blank">TiDB Cloud</a> (leading cloud-native database service), driving product from early incubation to global scale growth
+                        </span>
                     </div>
                     <div class="item-detail">
-                        <h3>Selected Work</h3>
+                        <h3 data-lang="zh" class="active">主要工作</h3>
+                        <h3 data-lang="en">Selected Work</h3>
                         <ul>
-                            <li class="module">基于数据分析的控制台体验优化</li>
+                            <li class="module">
+                                <span data-lang="zh" class="lang-inline active">基于数据分析的控制台体验优化</span>
+                                <span data-lang="en" class="lang-inline">Data-Driven Console Experience Optimization</span>
+                            </li>
                             <ul>
-                                <li>建立产品体验指标体系并持续跟踪，基于数据分析重塑用户首次登录体验，重构注册引导、集群初始化流程，显著缩短用户的首次价值实现时间 (Time-to-Value)</li>
-                                <li>与 UX/UI 团队一起重新设计优化 Web Console 信息导航架构，优化多租户架构下资源的逻辑布局，提升了用户操作效率与平台易用性</li>
+                                <li data-lang="zh" class="active">建立产品体验指标体系并持续跟踪，基于数据分析重塑用户首次登录体验，重构注册引导、集群初始化流程，显著缩短用户的首次价值实现时间 (Time-to-Value)</li>
+                                <li data-lang="en">Established product experience metrics and continuously tracked them, redesigned first-time user experience based on data analysis, restructured registration flow and cluster initialization process, significantly reducing Time-to-Value</li>
+                                <li data-lang="zh" class="active">与 UX/UI 团队一起重新设计优化 Web Console 信息导航架构，优化多租户架构下资源的逻辑布局，提升了用户操作效率与平台易用性</li>
+                                <li data-lang="en">Collaborated with UX/UI teams to redesign and optimize Web Console information architecture, improved resource logical layout under multi-tenant architecture, enhancing user operational efficiency and platform usability</li>
                             </ul>
-                            <li class="module">多租户资源管理架构与用户身份认证体系</li>
+                            <li class="module">
+                                <span data-lang="zh" class="lang-inline active">用户身份认证体系</span>
+                                <span data-lang="en" class="lang-inline">Identity Access Management</span>
+                            </li>
                             <ul>
-                                <li>设计 TiDB Cloud 多租户架构、资源逻辑层级与<a href="https://docs.pingcap.com/tidbcloud/manage-user-access/" target="_blank">身份访问管理模型</a> ，实现了精细化的资源隔离与基于角色的访问控制</li>
-                                <li>主导 TiDB Cloud 支持 SAML、OIDC 及 OAuth2.0 等国际通用安全标准，解决全球企业级客户上云的合规与安全性痛点，使产品具备服务大中型企业的能力
-                                <li>产品博客：
+                                <li data-lang="zh" class="active">设计 TiDB Cloud 多租户架构、资源逻辑层级与<a href="https://docs.pingcap.com/tidbcloud/manage-user-access/" target="_blank">身份访问管理模型</a> ，实现了精细化的资源隔离与基于角色的访问控制</li>
+                                <li data-lang="en">Designed TiDB Cloud multi-tenant architecture, resource logical hierarchy and <a href="https://docs.pingcap.com/tidbcloud/manage-user-access/" target="_blank">Identity and Access Management model</a>, achieving fine-grained resource isolation and role-based access control</li>
+                                <li data-lang="zh" class="active">主导 TiDB Cloud 支持 SAML、OIDC 及 OAuth2.0 等国际通用安全标准，解决全球企业级客户上云的合规与安全性痛点，使产品具备服务大中型企业的能力</li>
+                                <li data-lang="en">Led TiDB Cloud to support international security standards including SAML, OIDC, and OAuth2.0, addressing compliance and security pain points for global enterprise customers, enabling the product to serve medium and large enterprises</li>
+                                <li data-lang="zh" class="active">产品博客：
                                     <a href="https://www.pingcap.com/blog/announcing-organization-sso-authentication-tidb-cloud/" target="_blank"> SAML/OIDC Blog</a>， 
                                     <a href="https://www.pingcap.com/blog/tidb-cloud-supports-oauth-2-0-for-a-more-secure-login-experience/" target="_blank"> OAuth Blog 1</a>， 
-                                    <a href="https://www.pingcap.com/blog/maximizing-tidb-cloud-security-and-usability-with-oauth-2-0-authorization-code-flow/" target="_blank"> OAuth Blog 2</a> 
+                                    <a href="https://www.pingcap.com/blog/maximizing-tidb-cloud-security-and-usability-with-oauth-2-0-authorization-code-flow/" target="_blank"> OAuth Blog 2</a>
+                                </li>
+                                <li data-lang="en">Product blogs:
+                                    <a href="https://www.pingcap.com/blog/announcing-organization-sso-authentication-tidb-cloud/" target="_blank"> SAML/OIDC Blog</a>， 
+                                    <a href="https://www.pingcap.com/blog/tidb-cloud-supports-oauth-2-0-for-a-more-secure-login-experience/" target="_blank"> OAuth Blog 1</a>， 
+                                    <a href="https://www.pingcap.com/blog/maximizing-tidb-cloud-security-and-usability-with-oauth-2-0-authorization-code-flow/" target="_blank"> OAuth Blog 2</a>
                                 </li>
                             </ul>
-                            <li class="module">全球商业化与生态拓展</li>
+                            <li class="module">
+                                <span data-lang="zh" class="lang-inline active">全球商业化与生态拓展</span>
+                                <span data-lang="en" class="lang-inline">Global Commercialization and Ecosystem Expansion</span>
+                            </li>
                             <ul>
-                                <li>搭建 <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing" target="_blank">TiDB Cloud 商业支付结算系统</a>，引入灵活的 Credits 与 Discounts 应用体系，使产品能力与营销策略结合，提升客户付费转化与留存</li>
-                                <li>组织多部门协同完成新功能商业化定价方案设计，逐步提升产品价值变现能力</li>
-                                <li>成功将产品推向 AWS、GCP、Azure 三大全球主流<a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing/#billing-from-cloud-provider-marketplace" target="_blank">云市场 (Marketplace)</a>，打通全球客户的购买链路，实现营收规模化</li>
-                                <li>从 0 到 1 打造 <a href="https://partner-console.tidbcloud.com/" target="_blank">TiDB Cloud 合作伙伴管理平台</a> ，赋能全球分销商，通过生态力量加速产品在全球市场的渗透与增量营收</li>
-                                <li>推出可视化成本分析工具 <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing/#cost-explorer" target="_blank">Cost Explorer</a> 
+                                <li data-lang="zh" class="active">搭建 <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing" target="_blank">TiDB Cloud 商业支付结算系统</a>，引入灵活的 Credits 与 Discounts 应用体系，使产品能力与营销策略结合，提升客户付费转化与留存</li>
+                                <li data-lang="en">Built <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing" target="_blank">TiDB Cloud commercial payment and billing system</a>, introduced flexible Credits and Discounts system, combining product capabilities with marketing strategies to improve customer conversion and retention</li>
+                                <li data-lang="zh" class="active">组织多部门协同完成新功能商业化定价方案设计，逐步提升产品价值变现能力</li>
+                                <li data-lang="en">Cross-functional collaboration to design commercialization and pricing strategies for new features, gradually improving product monetization capabilities</li>
+                                <li data-lang="zh" class="active">成功将产品推向 AWS、GCP、Azure 三大全球主流<a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing/#billing-from-cloud-provider-marketplace" target="_blank">云市场 (Marketplace)</a>，打通全球客户的购买链路，实现营收规模化</li>
+                                <li data-lang="en">Successfully launched the product on AWS, GCP, and Azure <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing/#billing-from-cloud-provider-marketplace" target="_blank">Marketplaces</a>, enabling global customer purchase channels and achieving revenue scale</li>
+                                <li data-lang="zh" class="active">从 0 到 1 打造 <a href="https://partner-console.tidbcloud.com/" target="_blank">TiDB Cloud 合作伙伴管理平台</a> ，赋能全球分销商，通过生态力量加速产品在全球市场的渗透与增量营收</li>
+                                <li data-lang="en">Built from scratch the <a href="https://partner-console.tidbcloud.com/" target="_blank">TiDB Cloud Partner Management Platform</a>, empowering global distributors to accelerate product penetration and incremental revenue through ecosystem power</li>
+                                <li data-lang="zh" class="active">推出可视化成本分析工具 <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing/#cost-explorer" target="_blank">Cost Explorer</a> 
                                     与<a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-budget/" target="_blank"> Budget 预算管理功能</a>，提升费用支出透明度，帮助客户有效控制预算支出</li>
-                            
+                                <li data-lang="en">Launched visual cost analysis tool <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-billing/#cost-explorer" target="_blank">Cost Explorer</a> 
+                                    and <a href="https://docs.pingcap.com/tidbcloud/tidb-cloud-budget/" target="_blank">Budget management feature</a>, improving cost transparency and helping customers effectively control budget spending</li>
                             </ul>
-                            <li class="module">产品上市策略 (Go-To-Market) 与销售赋能</li>
+                            <li class="module">
+                                <span data-lang="zh" class="lang-inline active">产品上市策略 (Go-To-Market) 与销售赋能</span>
+                                <span data-lang="en" class="lang-inline">Go-To-Market Strategy and Sales Enablement</span>
+                            </li>
                             <ul>
-                                <li>与一线销售团队紧密协作，建立从市场一线需求到产品路线图的响应闭环机制，确保在不同地区市场的产品与市场契合度</li>
-                                <li>深度赋能全球重点区域销售团队，贴身服务战略级大客户</li>
+                                <li data-lang="zh" class="active">与一线销售团队紧密协作，建立从市场一线需求到产品路线图的响应闭环机制，确保在不同地区市场的产品与市场契合度</li>
+                                <li data-lang="en">Worked closely with frontline sales teams to establish a feedback loop from market needs to product roadmap, ensuring product-market fit across different regional markets</li>
+                                <li data-lang="zh" class="active">深度赋能全球重点区域销售团队，贴身服务战略级大客户</li>
+                                <li data-lang="en">Deeply enabled global key regional sales teams, providing dedicated service to SKA/KA</li>
                             </ul>
-                            <li class="module">前沿 AI 技术落地</li>
+                            <li class="module">
+                                <span data-lang="zh" class="lang-inline active">前沿 AI 技术落地</span>
+                                <span data-lang="en" class="lang-inline">Cutting-Edge AI Technology Implementation</span>
+                            </li>
                             <ul>
-                                <li>推出 <a href="https://docs.pingcap.com/tidbcloud/explore-data-with-chat2query/" target="_blank">AI 辅助 SQL 编辑器</a>，降低用户使用门槛，提升产品的竞争力和用户留存</li>
+                                <li data-lang="zh" class="active">推出 <a href="https://docs.pingcap.com/tidbcloud/explore-data-with-chat2query/" target="_blank">AI 辅助 SQL 编辑器</a>，降低用户使用门槛，提升产品的竞争力和用户留存</li>
+                                <li data-lang="en">Launched <a href="https://docs.pingcap.com/tidbcloud/explore-data-with-chat2query/" target="_blank">AI-assisted SQL editor</a>, reducing user barriers and improving product competitiveness and user retention</li>
                             </ul>
                         </ul>
                     </div>
@@ -829,12 +979,18 @@
                 <div class="item">
                     <span class="item-date">2019.09 - 2021.05</span>
                     <div class="item-title">ANZ</div>
-                    <div class="item-desc">大数据平台产品负责人</div>
+                    <div class="item-desc">
+                        <span data-lang="zh" class="active">大数据平台产品负责人</span>
+                        <span data-lang="en">Big Data Platform Product Lead</span>
+                    </div>
                     <div class="item-detail">
-                        <h3>Selected Work</h3>
+                        <h3 data-lang="zh" class="active">主要工作</h3>
+                        <h3 data-lang="en">Selected Work</h3>
                         <ul>
-                            <li>主导 EBD 企业级大数据、DAW 数据分析及 MLOps 平台建设</li>
-                            <li>通过需求管理与生态拓展，驱动多部门数据迁入，成功争取业务资金支持并扩大用户规模</li>
+                            <li data-lang="zh" class="active">主导 EBD 企业级大数据、DAW 数据分析及 MLOps 平台建设</li>
+                            <li data-lang="en">Led EBD enterprise big data, DAW data analytics, and MLOps platform development</li>
+                            <li data-lang="zh" class="active">通过需求管理与生态拓展，驱动多部门数据迁入，成功争取业务资金支持并扩大用户规模</li>
+                            <li data-lang="en">Drove multi-department data migration through requirements management and ecosystem expansion, successfully secured business funding and expanded user base</li>
                         </ul>
                     </div>
                 </div>
@@ -842,13 +998,20 @@
                 <div class="item">
                     <span class="item-date">2018.06 - 2019.09</span>
                     <div class="item-title">Huawei</div>
-                    <div class="item-desc">高级产品经理</div>
+                    <div class="item-desc">
+                        <span data-lang="zh" class="active">高级产品经理</span>
+                        <span data-lang="en">Senior Product Manager</span>
+                    </div>
                     <div class="item-detail">
-                        <h3>Selected Work</h3>
+                        <h3 data-lang="zh" class="active">主要工作</h3>
+                        <h3 data-lang="en">Selected Work</h3>
                         <ul>
-                            <li>负责产品 FusionROBO 和 FusionCube 的上市推广工作</li>
-                            <li>与第三方咨询机构合作，成功实现 FusionCube 在 Gartner 魔力四象限中升级到领导者象限</li>
-                            <li>全球重点区域销售赋能</li>
+                            <li data-lang="zh" class="active">负责产品 FusionROBO 和 FusionCube 的上市推广工作</li>
+                            <li data-lang="en">Responsible for go-to-market activities for FusionROBO and FusionCube products</li>
+                            <li data-lang="zh" class="active">与第三方咨询机构合作，成功实现 FusionCube 在 Gartner 魔力四象限中升级到领导者象限</li>
+                            <li data-lang="en">Collaborated with third-party consulting firms to successfully upgrade FusionCube to the Leaders quadrant in Gartner Magic Quadrant</li>
+                            <li data-lang="zh" class="active">全球重点区域销售赋能</li>
+                            <li data-lang="en">Sales enablement for key global regions</li>
                         </ul>
                     </div>
                 </div>
@@ -856,13 +1019,20 @@
                 <div class="item">
                     <span class="item-date">2008.09 - 2018.06</span>
                     <div class="item-title">Symantec/Veritas</div>
-                    <div class="item-desc">技术产品经理、软件开发经理</div>
+                    <div class="item-desc">
+                        <span data-lang="zh" class="active">技术产品经理、软件开发经理</span>
+                        <span data-lang="en">Technical Product Manager, Software Development Manager</span>
+                    </div>
                     <div class="item-detail">
-                        <h3>Selected Work</h3>
+                        <h3 data-lang="zh" class="active">主要工作</h3>
+                        <h3 data-lang="en">Selected Work</h3>
                         <ul>
-                            <li>首席产品管理：负责 NetBackup 一体机全生命周期管理；主导高可用（HA）版本研发并实现存储容量翻倍，大幅提升产品市场竞争力</li>
-                            <li>团队领导力：从 0 到 1 组建 20 人研发团队，主导 FileStore NAS 系统开发并完成敏捷开发模式转型</li>
-                            <li>OEM 生态合作：深度对接华为赛门铁克，助力 N8000 夺得 SPECsfs 全球性能冠军，并实现连续三年销售增速第一</li>
+                            <li data-lang="zh" class="active">首席产品管理：负责 NetBackup 一体机全生命周期管理；主导高可用（HA）版本研发并实现存储容量翻倍，大幅提升产品市场竞争力</li>
+                            <li data-lang="en">Principal Product Management: Managed full lifecycle of NetBackup appliances; led HA version development and doubled storage capacity, significantly improving product market competitiveness</li>
+                            <li data-lang="zh" class="active">团队领导力：从 0 到 1 组建 20 人研发团队，主导 FileStore NAS 系统开发并完成敏捷开发模式转型</li>
+                            <li data-lang="en">Team Leadership: Built a 20-person R&D team from scratch, led FileStore NAS system development and completed agile transformation</li>
+                            <li data-lang="zh" class="active">OEM 生态合作：深度对接华为赛门铁克，助力 N8000 夺得 SPECsfs 全球性能冠军，并实现连续三年全公司销售增速第一</li>
+                            <li data-lang="en">OEM Ecosystem Partnership: Deeply collaborated with Huawei Symantec, helped N8000 win SPECsfs global performance championship and achieved #1 sales growth for three consecutive years in the company</li>
                         </ul>
                     </div>
                 </div>
@@ -870,32 +1040,49 @@
                 <div class="item">
                     <span class="item-date">2006.07 - 2008.09</span>
                     <div class="item-title">Nokia</div>
-                    <div class="item-desc">软件开发工程师</div>
+                    <div class="item-desc">
+                        <span data-lang="zh" class="active">软件开发工程师</span>
+                        <span data-lang="en">Software Development Engineer</span>
+                    </div>
                     <div class="item-detail">
-                        <h3>Selected Work</h3>
+                        <h3 data-lang="zh" class="active">主要工作</h3>
+                        <h3 data-lang="en">Selected Work</h3>
                         <ul>
-                            <li>参与到 PoC (Push to Talk Over Cellular) 项目开发，将开发从芬兰移交到中国</li>
-                            <li>作为主要开发人员为 2008 年北京奥运会设计实现了可抢占语音通话新功能</li>
+                            <li data-lang="zh" class="active">参与到 PoC (Push to Talk Over Cellular) 项目开发，将开发从芬兰移交到中国</li>
+                            <li data-lang="en">Participated in PoC (Push to Talk Over Cellular) project development, transferred development from Finland to China</li>
+                            <li data-lang="zh" class="active">作为主要开发人员为 2008 年北京奥运会设计实现了可抢占语音通话新功能</li>
+                            <li data-lang="en">As a key developer, designed and implemented preemptible voice call feature for 2008 Beijing Olympics</li>
                         </ul>
                     </div>
                 </div>
             </section>
 
             <section>
-                <h2>教育经历</h2>
+                <h2 data-lang="zh" class="active">教育经历</h2>
+                <h2 data-lang="en">Education</h2>
                 <div class="item">
                     <span class="item-date">2012 - 2015</span>
-                    <div class="item-title">四川大学</div>
+                    <div class="item-title">
+                        <span data-lang="zh" class="lang-inline active">四川大学</span>
+                        <span data-lang="en" class="lang-inline">Sichuan University</span>
+                    </div>
                     <div class="item-desc">MBA</div>
                 </div>
                 <div class="item">
                     <span class="item-date">1999 - 2006</span>
-                    <div class="item-title">电子科技大学</div>
-                    <div class="item-desc">计算机科学与技术 · 硕士</div>
+                    <div class="item-title">
+                        <span data-lang="zh" class="lang-inline active">电子科技大学</span>
+                        <span data-lang="en" class="lang-inline">University of Electronic Science and Technology of China</span>
+                    </div>
+                    <div class="item-desc">
+                        <span data-lang="zh" class="active">计算机科学与技术 · 硕士</span>
+                        <span data-lang="en">Computer Science and Technology · Master's Degree</span>
+                    </div>
                 </div>
             </section>
             <section>
-                <h2>证书</h2>
+                <h2 data-lang="zh" class="active">证书</h2>
+                <h2 data-lang="en">Certifications</h2>
                 <div class="item">
                     <ul class="cert-list">
                         <li>PingCAP Certified TiDB Associate </li>
@@ -913,12 +1100,89 @@
     <div id="wechat-modal" class="wechat-modal">
         <div class="wechat-modal-content">
             <span class="wechat-modal-close">&times;</span>
-            <h3 style="margin-bottom: 15px; color: var(--text-color);">微信二维码</h3>
-            <img src="Weixin.jpg" alt="微信二维码">
+            <h3 style="margin-bottom: 15px; color: var(--text-color);">
+                <span data-lang="zh" class="lang-inline active">微信二维码</span>
+                <span data-lang="en" class="lang-inline">WeChat QR Code</span>
+            </h3>
+            <img src="Weixin.jpg" alt="WeChat QR Code">
         </div>
     </div>
     
     <script>
+        // 语言检测和切换功能
+        (function() {
+            // 检测浏览器语言
+            function detectLanguage() {
+                // 优先使用 localStorage 中保存的语言选择
+                const savedLang = localStorage.getItem('preferred-language');
+                if (savedLang) {
+                    return savedLang;
+                }
+                
+                // 检测浏览器语言
+                const browserLang = navigator.language || navigator.userLanguage;
+                // 检查是否是中文（包括 zh-CN, zh-TW, zh-HK 等）
+                if (browserLang.toLowerCase().startsWith('zh')) {
+                    return 'zh';
+                }
+                // 默认使用英文
+                return 'en';
+            }
+            
+            // 切换语言
+            function switchLanguage(lang) {
+                // 更新所有 data-lang 元素
+                document.querySelectorAll('[data-lang]').forEach(function(el) {
+                    if (el.getAttribute('data-lang') === lang) {
+                        el.classList.add('active');
+                    } else {
+                        el.classList.remove('active');
+                    }
+                });
+                
+                // 更新内联元素
+                document.querySelectorAll('.lang-inline[data-lang]').forEach(function(el) {
+                    if (el.getAttribute('data-lang') === lang) {
+                        el.classList.add('active');
+                    } else {
+                        el.classList.remove('active');
+                    }
+                });
+                
+                // 更新 HTML lang 属性
+                document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+                
+                // 更新页面标题
+                const pageTitle = document.getElementById('page-title');
+                if (pageTitle) {
+                    pageTitle.textContent = lang === 'zh' ? '周鹏的简历' : "Roger Zhou's Resume";
+                }
+                
+                // 更新语言切换按钮状态
+                document.getElementById('lang-zh').classList.toggle('active', lang === 'zh');
+                document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+                
+                // 保存语言选择
+                localStorage.setItem('preferred-language', lang);
+            }
+            
+            // 初始化
+            document.addEventListener('DOMContentLoaded', function() {
+                // 检测并设置初始语言
+                const initialLang = detectLanguage();
+                switchLanguage(initialLang);
+                
+                // 绑定语言切换按钮
+                document.getElementById('lang-zh').addEventListener('click', function() {
+                    switchLanguage('zh');
+                });
+                
+                document.getElementById('lang-en').addEventListener('click', function() {
+                    switchLanguage('en');
+                });
+            });
+        })();
+        
         // 展开/收起功能
         document.addEventListener('DOMContentLoaded', function() {
             const modules = document.querySelectorAll('.item-detail li.module');
@@ -936,26 +1200,32 @@
             const closeBtn = document.querySelector('.wechat-modal-close');
             
             // 点击微信链接显示弹窗
-            wechatLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                wechatModal.classList.add('show');
-            });
+            if (wechatLink) {
+                wechatLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    wechatModal.classList.add('show');
+                });
+            }
             
             // 点击关闭按钮隐藏弹窗
-            closeBtn.addEventListener('click', function() {
-                wechatModal.classList.remove('show');
-            });
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    wechatModal.classList.remove('show');
+                });
+            }
             
             // 点击弹窗背景区域隐藏弹窗
-            wechatModal.addEventListener('click', function(e) {
-                if (e.target === wechatModal) {
-                    wechatModal.classList.remove('show');
-                }
-            });
+            if (wechatModal) {
+                wechatModal.addEventListener('click', function(e) {
+                    if (e.target === wechatModal) {
+                        wechatModal.classList.remove('show');
+                    }
+                });
+            }
             
             // 按 ESC 键隐藏弹窗
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && wechatModal.classList.contains('show')) {
+                if (e.key === 'Escape' && wechatModal && wechatModal.classList.contains('show')) {
                     wechatModal.classList.remove('show');
                 }
             });
